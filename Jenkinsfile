@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Clone') {
             steps {
-                git branch:'master',url:'https://github.com/josedom24/ic-travis-diccionario.git'
+                git branch:'master',url:'https://github.com/joseju10/ic-diccionario'
             }
         }
         stage('Install') {
@@ -24,5 +24,11 @@ pipeline {
             }
         }
     }
+    post {
+         always {
+          mail to: 'josejuanhervascarrasco@gmail.com',
+          subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
+          body: "${env.BUILD_URL} has result ${currentBuild.result}"
+        }
+      }
 }
-
